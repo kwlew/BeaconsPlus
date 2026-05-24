@@ -1,0 +1,10 @@
+name: BeaconsPlus
+description: $description
+version: '${version}'
+
+main: dev.kwlew.beaconsplus.BeaconsPlus
+api-version: '26.1.2'
+load: POSTWORLD
+
+authors: [ kwlew ]
+website: https://kwlew.dev
