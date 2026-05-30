@@ -28,7 +28,7 @@ public final class BeaconsPlus extends JavaPlugin {
 
     private void logStartupTime() {
         long time = System.currentTimeMillis() - start;
-        getLogger().info("Beacons+ enabled! (Took " + time + "ms)");
+        this.getLogger().info("Beacons+ enabled! (Took " + time + "ms)");
     }
 
 }

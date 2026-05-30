@@ -11,9 +11,12 @@ repositories {
 
 var paperweightVersion = "26.1.2.build.+"
 var minecraftVersion = "26.1.2"
+var bStatsVersion = "3.2.1"
 
 dependencies {
     paperweight.paperDevBundle(paperweightVersion)
+
+    implementation("org.bstats:bstats-bukkit:$bStatsVersion")
 }
 
 java {
@@ -31,6 +34,16 @@ tasks {
         // Your plugin's jar (or shadowJar if present) will be used automatically.
         minecraftVersion(minecraftVersion)
         jvmArgs("-Xms2G", "-Xmx2G", "-Dcom.mojang.eula.agree=true")
+    }
+
+    shadowJar {
+        configurations = project.configurations.runtimeClasspath.map { setOf(it) }
+
+        dependencies {
+            exclude { it.moduleGroup != "org.bstats" }
+        }
+
+        relocate("org.bstats", project.group.toString())
     }
 
     processResources {

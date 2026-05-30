@@ -1,6 +1,10 @@
 package dev.kwlew.beaconsplus.kernel;
 
+import dev.kwlew.beaconsplus.hooks.bStats.bStats;
+import dev.kwlew.beaconsplus.listeners.BeaconListener;
+import dev.kwlew.beaconsplus.managers.config.ConfigManager;
 import dev.kwlew.beaconsplus.managers.messages.MessageManager;
+import dev.kwlew.beaconsplus.managers.utils.BeaconManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -26,12 +30,30 @@ public class Bootstrap {
         lifecycle(LifecycleComponent::shutdown);
     }
 
+    public <T> T resolve(Class<T> type) {
+        return registry.resolve(type);
+    }
+
     private void initManagers() {
+        registry.resolve(ConfigManager.class);
         registry.resolve(MessageManager.class);
+        registry.resolve(BeaconManager.class);
+    }
+
+    private void initListeners() {
+        registry.resolve(BeaconListener.class);
+    }
+
+    private void initHooks() {
+        registry.resolve(bStats.class);
     }
 
     private void initAll() {
         initManagers();
+
+        initHooks();
+
+        initListeners();
     }
 
     private void lifecycle(Consumer<LifecycleComponent> action) {
